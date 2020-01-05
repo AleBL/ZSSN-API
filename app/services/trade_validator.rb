@@ -21,10 +21,10 @@ class TradeValidator
   end
 
   def inventory_from_points
-    InventoryCalculator.new(inventory: inventory_from).total
+    ItemsCalc.new(inventory: inventory_from).total
   end
 
   def inventory_to_points
-    InventoryCalculator.new(inventory: inventory_to).total
+    ItemsCalc.new(inventory: inventory_to).total
   end
 end
