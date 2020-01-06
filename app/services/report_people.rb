@@ -7,14 +7,12 @@ class ReportPeople
   end
 
   def valid?
-    if report_from.infected?
-      false
-    else
-      report_from_not_infected
-    end
+    false if report_to.infected? || report_from.infected?
+
+    report_not_infected
   end
 
-  def report_from_not_infected
+  def report_not_infected
     report             = ReportPerson.new()
     report.report_to   = report_to
     report.report_from = report_from
