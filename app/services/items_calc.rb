@@ -13,7 +13,7 @@ class ItemsCalc
   end
 
   def total
-    water.to_i + food.to_i + medication.to_i + ammunition.to_i
+    water + food + medication + ammunition
   end
 
   private
