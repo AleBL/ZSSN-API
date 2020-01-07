@@ -8,7 +8,7 @@ class TradeItems
   end
 
   def valid?
-    false unless valid_trade?
+    return false unless valid_trade?
 
     ActiveRecord::Base.transaction do
       perform_trade
@@ -18,7 +18,9 @@ class TradeItems
   private
 
   def valid_trade?
-    TradeValidator.new(inventory_from: inventory_from, inventory_to: inventory_to).valid?
+    TradeValidator.new(inventory_from: inventory_from,
+                       inventory_to:   inventory_to,
+                       trade_params:   trade_params).valid?
   end
 
   def perform_trade
