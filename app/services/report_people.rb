@@ -7,7 +7,7 @@ class ReportPeople
   end
 
   def valid?
-    false if report_to.infected? || report_from.infected?
+    return false if report_to.infected? || report_from.infected?
 
     report_not_infected
   end
