@@ -13,6 +13,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.9'
   gem 'ffaker', '~> 2.13.0'
   gem 'factory_bot_rails', '~> 5.1.1'
+  gem 'pry', '~> 0.12.2'
 end
 
 group :test do
@@ -23,7 +24,6 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring', '~> 2.1.0'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'pry', '~> 0.12.2'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
