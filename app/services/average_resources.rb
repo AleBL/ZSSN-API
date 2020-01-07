@@ -30,7 +30,7 @@ class AverageResources
   def total_resources
     return @total_resources if defined?(@total_resources)
     @total_resources = people.inject(default_hash) do |hash, person|
-      inventory = Inventory.find(person.id)
+      inventory = Inventory.find(person.inventory_id)
 
       hash[:water]      += inventory.water
       hash[:food]       += inventory.food

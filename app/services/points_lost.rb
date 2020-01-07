@@ -35,7 +35,7 @@ class PointsLost
   def total_points
     return @total_points if defined?(@total_points)
     @total_points = people.inject(default_hash) do |hash, person|
-      inventory = Inventory.find(person.id)
+      inventory = Inventory.find(person.inventory_id)
 
       hash[:water]      += inventory.water
       hash[:food]       += inventory.food
