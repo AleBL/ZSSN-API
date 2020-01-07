@@ -18,12 +18,12 @@ RSpec.describe TradeValidator do
         trade_params_valid = {
           inventory_from:
           {
-            id: person_from.id,
+            id: person_from.inventory_id,
             water: 2
           },
           inventory_to:
           {
-            id: person_to.id,
+            id: person_to.inventory_id,
             ammunition: 8
     
           }
@@ -45,22 +45,22 @@ RSpec.describe TradeValidator do
         person_from.inventory_id = inventory_from.id
         person_from.save
     
-        trade_params_valid = {
+        trade_params_invalid = {
           inventory_from:
           {
-            id: person_from.id,
+            id: person_from.inventory_id,
             water: 2
           },
           inventory_to:
           {
-            id: person_to.id,
+            id: person_to.inventory_id,
             ammunition: 9
           }
         }
     
         trade_validator = TradeValidator.new(inventory_from: inventory_from,
                                              inventory_to:   inventory_to,
-                                             trade_params:   trade_params_valid)
+                                             trade_params:   trade_params_invalid)
         expect(trade_validator.valid?).to be_falsey
       end
 
@@ -75,12 +75,12 @@ RSpec.describe TradeValidator do
         trade_params_invalid = {
           inventory_from:
           {
-            id: person_from.id,
+            id: person_from.inventory_id,
             food: 4
           },
           inventory_to:
           {
-            id: person_to.id,
+            id: person_to.inventory_id,
             water: 2,
             ammunition: 8
           }
