@@ -13,12 +13,17 @@ class TradeValidator
     inventory_from_points == inventory_to_points
   end
 
-  # private
+  private
+
   def infected?
     person_from = Person.where(inventory_id: inventory_from.id)[0]
     person_to   = Person.where(inventory_id: inventory_to.id)[0]
 
-    person_from.infected? || person_to.infected?
+    if person_from.nil? || person_to.nil?
+      false
+    else
+      person_from.infected? || person_to.infected?
+    end
   end
 
   def inventory_from_points
