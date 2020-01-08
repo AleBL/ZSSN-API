@@ -25,7 +25,9 @@ or
 `rails db:migrate`, 
 `rails db:seed`
 \
+\
 For The Tests
+\
 \
 `rails db:setup RAILS_ENV=test`
 or
