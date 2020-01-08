@@ -38,3 +38,5 @@ or
 `bundle exec rspec`
 
 # Documentation
+https://documenter.getpostman.com/view/8243464/SWLfcnnt?version=latest
+
