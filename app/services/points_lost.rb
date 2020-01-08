@@ -10,12 +10,6 @@ class PointsLost
     @total ||= water_points + food_points + medication_points + ammunition_points
   end
 
-  def lost_points
-    { water: water_points, food: food_points, medication: medication_points, ammunition: ammunition_points }
-  end
-
-  private
-
   def water_points
     total_points[:water] * WEIGHTS[:water]
   end
@@ -31,6 +25,8 @@ class PointsLost
   def ammunition_points
     total_points[:ammunition] * WEIGHTS[:ammunition]
   end
+
+  private
 
   def total_points
     return @total_points if defined?(@total_points)
