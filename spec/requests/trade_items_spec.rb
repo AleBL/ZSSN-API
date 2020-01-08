@@ -5,6 +5,7 @@ RSpec.describe "Trade Items", type: :request do
     context "POST with valid attributes" do
       let(:person_to)   { create(:person_with_inventory) }
       let(:person_from) { create(:person_with_inventory) }
+
       it "perform a new trade" do
         trade_params_valid = {
           inventory_from:
@@ -30,6 +31,7 @@ end
 context "POST with invalid attributes" do
   let(:person_to)   { create(:person_with_inventory) }
   let(:person_from) { create(:person_infected_with_inventory) }
+  
   it "do not perform a new trade" do
     trade_params_valid = {
       inventory_from:

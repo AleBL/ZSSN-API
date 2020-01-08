@@ -21,66 +21,66 @@ RSpec.describe "People", type: :request do
 
   describe "POST /api/people" do
     context "POST with valid attributes" do
-      it "create a new person" do
-        create_person_attributes = JSON[
-          '{
-            "person": {
-              "name": "' + FFaker::NameBR.name + '",
-              "age":   ' + FFaker::Random.rand(1..99).to_s + ',
-              "gender":"'+ FFaker::GenderBR.maybe + '",
-              "local": "'+ (FFaker::Geolocation.lat.to_s + ", " + FFaker::Geolocation.lng.to_s) + '"
-              
-            },
-            "inventory": {
-              "water":      ' + FFaker::Random.rand(1..99).to_s + ',
-              "food":       ' + FFaker::Random.rand(1..99).to_s + ',
-              "medication": ' + FFaker::Random.rand(1..99).to_s + ',
-              "ammunition": ' + FFaker::Random.rand(1..99).to_s + '
-            }
-          }'
-        ]
+      let(:params_valid_create_person) {{
+        person: {
+            name:   FFaker::NameBR.name,
+            age:    FFaker::Random.rand(1..99),
+            gender: FFaker::GenderBR.maybe,
+            local:  FFaker::Geolocation.lat.to_s + ", " + FFaker::Geolocation.lng.to_s
+          },
+          inventory:{
+            water:      FFaker::Random.rand(1..99),
+            food:       FFaker::Random.rand(1..99),
+            medication: FFaker::Random.rand(1..99),
+            ammunition: FFaker::Random.rand(1..99)
+          }
+      }}
 
+      it "create a new person" do
         expect{
-          post "/api/people", params: create_person_attributes
+          post "/api/people", params: params_valid_create_person
         }.to change(Person, :count).by(1)
       end
     end
-  end
 
-  describe "POST /api/people" do
     context "POST with invalid inventory" do
-      let(:invalid_attributes) { { name: "" } }
+      let(:params_invalid_create_person) {{
+        person: {
+            name:   FFaker::NameBR.name,
+            age:    FFaker::Random.rand(1..99),
+            gender: FFaker::GenderBR.maybe,
+            local:  FFaker::Geolocation.lat.to_s + ", " + FFaker::Geolocation.lng.to_s
+          },
+          inventory:{
+            water:      FFaker::Random.rand(1..99),
+            food:       FFaker::Random.rand(1..99)
+          }
+      }}
 
       it "does not create a new person" do
         expect {
-          post "/api/people", params: invalid_attributes
+          post "/api/people", params: params_invalid_create_person
         }.not_to change(Person, :count)
       end
     end
-  end
 
-  describe "POST /api/people" do
     context "POST with invalid attributes" do
-      invalid_attributes = JSON[
-        '{
-          "person": {
-            "age":   ' + FFaker::Random.rand(1..99).to_s + ',
-            "gender":"'+ FFaker::GenderBR.maybe + '",
-            "local": "'+ (FFaker::Geolocation.lat.to_s + ", " + FFaker::Geolocation.lng.to_s) + '"
-            
+      let(:params_invalid_create_person) {{
+        person: {
+            age:    FFaker::Random.rand(1..99),
+            gender: FFaker::GenderBR.maybe
           },
-          "inventory": {
-            "water":      ' + FFaker::Random.rand(1..99).to_s + ',
-            "food":       ' + FFaker::Random.rand(1..99).to_s + ',
-            "medication": ' + FFaker::Random.rand(1..99).to_s + ',
-            "ammunition": ' + FFaker::Random.rand(1..99).to_s + '
+          inventory:{
+            water:      FFaker::Random.rand(1..99),
+            food:       FFaker::Random.rand(1..99),
+            medication: FFaker::Random.rand(1..99),
+            ammunition: FFaker::Random.rand(1..99)
           }
-        }'
-      ]
+      }}
 
       it "does not create a new person" do
         expect {
-          post "/api/people", params: invalid_attributes
+          post "/api/people", params: params_invalid_create_person
         }.not_to change(Person, :count)
       end
     end
