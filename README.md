@@ -37,7 +37,8 @@ or
 # How to run the test suite
 `bundle exec rspec`
 
+# Documentation
 [Postman Documentation](https://documenter.getpostman.com/view/8243464/SWLfcnnt?version=latest)
 
 # Test Coverage
-![text](relative/path/to/img.png?raw=true "Title")
+![alt text](https://gitlab.com/Alessandrobarros265/zssn-cm42/blob/master/img.png)
