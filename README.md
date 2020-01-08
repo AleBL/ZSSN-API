@@ -18,13 +18,20 @@
     - Points lost because of infected survivor.
 }
 
-# Database setup
+# Database Setup
 `rails db:setup`
 or
-`rails db:create`
-`rails db:migrate`
+`rails db:create`, 
+`rails db:migrate`, 
 `rails db:seed`
-
+\
+For The Tests
+\
+`rails db:setup RAILS_ENV=test`
+or
+`rails db:create`, 
+`rails db:migrate RAILS_ENV=test`, 
+`rails db:seed RAILS_ENV=test`
 # How to run the test suite
 `bundle exec rspec`
 
