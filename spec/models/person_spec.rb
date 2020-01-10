@@ -1,6 +1,13 @@
 require "rails_helper"
 
 RSpec.describe Person, type: :model do
+
+  describe 'validations' do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:local) }
+    it { should validate_presence_of(:inventory_id) }
+  end
+
   context "Valid Person" do
     let(:person) { create(:person_with_inventory) }
     it "It is a valid person" do

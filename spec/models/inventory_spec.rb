@@ -1,6 +1,19 @@
 require "rails_helper"
 
 RSpec.describe Inventory, type: :model do
+
+  describe 'validations' do
+    it { should validate_presence_of(:water) }
+    it { should validate_presence_of(:food) }
+    it { should validate_presence_of(:medication) }
+    it { should validate_presence_of(:ammunition) }
+    
+    it { should validate_numericality_of(:water).is_greater_than_or_equal_to(0) }
+    it { should validate_numericality_of(:food).is_greater_than_or_equal_to(0) }
+    it { should validate_numericality_of(:medication).is_greater_than_or_equal_to(0) }
+    it { should validate_numericality_of(:ammunition).is_greater_than_or_equal_to(0) }
+  end
+
   let(:inventory) { build(:inventory) }
 
   context "Valid Inventory" do

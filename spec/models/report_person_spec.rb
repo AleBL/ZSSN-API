@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.describe ReportPerson, type: :model do
+  describe 'validations' do
+    it { should belong_to(:report_to) } 
+    it { should belong_to(:report_from) }
+  end
+
   context "Valid Report" do
     let(:person_to)   { create(:person_with_inventory) }
     let(:person_from) { create(:person_with_inventory) }
