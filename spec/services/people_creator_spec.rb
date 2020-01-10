@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe PeopleCreator do
   describe "people creator" do
@@ -18,7 +18,7 @@ RSpec.describe PeopleCreator do
         }
       }}
 
-      it "person created" do
+      it "person created successfully" do
         people_creator = PeopleCreator.new(create_person_params: person_params_valid)
         expect(people_creator.created?).to be_truthy
       end
@@ -39,7 +39,7 @@ RSpec.describe PeopleCreator do
         }
       }}
 
-      it "person without name" do
+      it "error, person without name" do
         people_creator = PeopleCreator.new(create_person_params: person_params_without_name)
         expect(people_creator.created?).to be_falsey
       end
@@ -53,7 +53,7 @@ RSpec.describe PeopleCreator do
         }
       }}
 
-      it "person without inventory" do
+      it "error, person without inventory" do
         people_creator = PeopleCreator.new(create_person_params: person_params_without_inventory)
         expect(people_creator.created?).to be_falsey
       end

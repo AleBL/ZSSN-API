@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe TradeItems do
   describe "trade items" do
@@ -39,7 +39,7 @@ RSpec.describe TradeItems do
     }}
 
     context "#valid? true" do
-      it "trade is valid" do
+      it "trade with valid attributes" do
         trade_items = TradeItems.new(inventory_from: inventory_from,
                                      inventory_to:   inventory_to,
                                      trade_params:   trade_params_valid)
@@ -48,7 +48,7 @@ RSpec.describe TradeItems do
     end
     
     context "#valid? false" do
-      it "trade is invalid, person_to infected" do
+      it "trade with invalid attributes, person_to infected" do
         trade_items = TradeItems.new(inventory_from: inventory_from_infected,
                                      inventory_to:   inventory_to_infected,
                                      trade_params:   trade_params_invalid)
@@ -56,7 +56,7 @@ RSpec.describe TradeItems do
         expect(trade_items.valid?).to be_falsey
       end
 
-      it "trade is invalid, person_from infected" do
+      it "trade with invalid attributes, person_from infected" do
         trade_items = TradeItems.new(inventory_from: inventory_from_infected,
                                      inventory_to:   inventory_to_infected,
                                      trade_params:   trade_params_invalid)

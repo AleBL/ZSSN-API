@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ItemTrader do
   describe "Trade Items" do
@@ -18,7 +18,7 @@ RSpec.describe ItemTrader do
         }
     }}
 
-    context "valid trade" do
+    context "trade with valid attributes" do
       it "#removefrom" do
         item_trader = ItemTrader.new(inventory_from: inventory_from, inventory_to: inventory_to, trade_params: trade_params_valid).remove_from
         expect(item_trader).to eq(trade_params_valid[:inventory_from])

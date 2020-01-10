@@ -11,7 +11,7 @@ RSpec.describe Person, type: :model do
   context "Invalid Person" do
     let(:person) { create(:person_with_inventory) }
     
-    it "It is not a valid person, person doesn`t have a inventory" do
+    it "It is not a valid person, person doesn`t have an inventory" do
       person.inventory_id = nil
       expect(person.valid?).to be_falsy
     end

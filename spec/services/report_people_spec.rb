@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ReportPeople do
   describe "report survivors" do
@@ -6,7 +6,7 @@ RSpec.describe ReportPeople do
     let(:person_from) { create(:person_with_inventory) }
 
     context "#valid? true" do
-      it "valid report" do
+      it "report with valid attributes" do
         report_survivor = ReportPeople.new(report_to: person_to, report_from: person_from)
         expect(report_survivor.valid?).to be_truthy
       end
@@ -27,7 +27,7 @@ RSpec.describe ReportPeople do
     end
 
     context "#valid? false" do
-      it "person to and from are the same" do
+      it "report with invalid attributes, person to and from are the same" do
         report_survivor = ReportPeople.new(report_to: person_to, report_from: person_to)
         expect(report_survivor.valid?).to be_falsey
       end

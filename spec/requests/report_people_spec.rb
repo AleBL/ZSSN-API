@@ -5,7 +5,7 @@ RSpec.describe "ReportPeople", type: :request do
   let(:person_from) { create(:person_with_inventory) }
 
   describe "POST /api/report_people" do
-    context "POST with valid attributes" do
+    context "valid attributes" do
       let(:report_valid_params) {{
         report_to: person_to.id,
         report_from: person_from.id
@@ -29,10 +29,8 @@ RSpec.describe "ReportPeople", type: :request do
         }.to change(ReportPerson, :count).by(1)
       end
     end
-  end
 
-  describe "POST /api/report_people" do
-    context "POST with invalid params" do
+    context "invalid params" do
       let(:report_invalid_params) {{
         report_to: person_to.id,
         report_from: person_to.id

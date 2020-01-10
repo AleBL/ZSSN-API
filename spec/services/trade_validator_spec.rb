@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe TradeValidator do
   describe "trade validator" do
@@ -8,7 +8,7 @@ RSpec.describe TradeValidator do
     let(:inventory_to)   { Inventory.find(person_to.inventory_id) }
 
     context "#valid? true" do
-      it "trade is valid" do
+      it "trade with valid attributes" do
         trade_params_valid = {
           inventory_from:
           {
@@ -31,7 +31,7 @@ RSpec.describe TradeValidator do
     end
     
     context "#valid? false" do
-      it "trade is invalid, person_to infected" do
+      it "trade with invalid attributes, person_to infected" do
         person_to.infected = true
         person_to.save
     
@@ -54,7 +54,7 @@ RSpec.describe TradeValidator do
         expect(trade_validator.valid?).to be_falsey
       end
 
-      it "trade is invalid, person_from infected" do
+      it "trade with invalid attributes, person_from infected" do
         person_from.infected = true
         person_from.save
 
