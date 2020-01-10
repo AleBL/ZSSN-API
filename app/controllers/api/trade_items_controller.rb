@@ -9,9 +9,9 @@ module Api
                               trade_params:   trade_params)
 
       if trade.valid?
-        render json: {status: 'SUCCESS', message: 'Trade done'}, status: :ok
+        render json: {status: I18n.t('status.success'), message: I18n.t('inventory.trade.valid')}, status: :ok
       else
-        render json: {status: 'ERROR', message: 'Trade failed'}, status: :unprocessable_entity
+        render json: {status: I18n.t('status.error'), message: I18n.t('inventory.trade.invalid')}, status: :unprocessable_entity
       end
     end
 

@@ -1,0 +1,28 @@
+---
+pt-BR:
+  status:
+    success: "SUCESSO"
+    error: "ERRO"
+
+  messages:
+    success: "Carregado com sucesso"
+
+  person:
+    new:
+      valid: "Pessoa salva com sucesso"
+      invalid: "A pessoa não foi salva"
+    report:
+      valid: "Pessoa reportada com sucesso"
+      invalid: "A pessoa não foi reportada"
+      not_same: "Não pode ser a mesma pessoa que foi reportada"
+      existe: "A denúncia já existe"
+    update_location:
+      valid: "Local foi atualizado com sucesso"
+      invalid: "Local não foi atualizado"
+    location:
+      invalid: "O local é inválido"
+
+  inventory:
+    trade:
+      valid: "Troca concluída"
+      invalid: "Falha na troca"

@@ -9,9 +9,9 @@ module Api
 
       if report.valid?
         report.verify_reports
-        render json: {status: 'SUCCESS', message: 'Person Succcessfully Reported'}, status: :ok
+        render json: {status: I18n.t('status.success'), message: I18n.t('person.report.valid')}, status: :ok
       else
-        render json: {status: 'ERROR', message: 'Person wasn`t Reported'}, status: :unprocessable_entity
+        render json: {status: I18n.t('status.error'), message: I18n.t('person.report.invalid')}, status: :unprocessable_entity
       end
     end
 

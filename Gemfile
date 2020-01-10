@@ -14,10 +14,14 @@ group :development, :test do
   gem 'ffaker', '~> 2.13.0'
   gem 'factory_bot_rails', '~> 5.1.1'
   gem 'pry', '~> 0.12.2'
+  gem 'bullet', '~> 6.1.0'
+  gem 'i18n', '~> 1.8', '>= 1.8.1'
+
 end
 
 group :test do
    gem 'simplecov', '~> 0.17.1', require: false
+   gem 'shoulda-matchers', '~> 4.2.0'
  end
 
 group :development do

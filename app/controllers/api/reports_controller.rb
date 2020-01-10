@@ -31,7 +31,7 @@ module Api
         average_items_non_infected: average_inventory,
         lost_points: lost_points_items
       }
-      render json: {status: 'SUCCESS', message: 'Reports', data: reports}, status: :ok
+      render json: {status: I18n.t('status.success'), data: reports}, status: :ok
     end
   end
 end
