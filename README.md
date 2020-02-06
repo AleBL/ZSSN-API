@@ -41,4 +41,4 @@ or
 [Postman Documentation](https://documenter.getpostman.com/view/8243464/SWLfcnnt?version=latest)
 
 # Test Coverage
-![alt text](https://gitlab.com/Alessandrobarros265/zssn-cm42/raw/master/img.png)
+![alt text](https://raw.githubusercontent.com/AleBL/ZSSN-API/master/img.png)
