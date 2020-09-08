@@ -1,3 +1,5 @@
+[![Build Status](https://circleci.com/gh/AleBL/ZSSN-API.svg?style=svg)](https://app.circleci.com/pipelines/github/AleBL/ZSSN-API)
+
 ## ZOMBIE SURVIVAL SOCIAL NETWORK API
 
 # Ruby Version
