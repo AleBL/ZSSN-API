@@ -9,7 +9,7 @@ class ItemTrader
 
   def remove_from
    trade_params[:inventory_from].each do |key, value|
-      next if key == "id" || !inventory_from.respond_to?(key)
+      next if ["id", :id].include?(key) || !inventory_from.respond_to?(key)
       current_from_value = inventory_from.public_send(key)
       updated_from_value = current_from_value.to_i - value.to_i
       current_to_value   = inventory_to.public_send(key)
@@ -21,7 +21,7 @@ class ItemTrader
 
   def add_to
     trade_params[:inventory_to].each do |key, value|
-      next if key == "id" || !inventory_to.respond_to?(key)
+      next if ["id", :id].include?(key) || !inventory_to.respond_to?(key)
       current_from_value = inventory_from.public_send(key)
       updated_from_value = current_from_value.to_i + value.to_i
       current_to_value   = inventory_to.public_send(key)
