@@ -6,7 +6,7 @@ class ItemsCalc
     ammunition: 1
   }
 
-  attr_reader :inventory
+  attr_reader     :inventory
 
   def initialize(inventory:)
     @inventory = inventory
@@ -34,4 +34,7 @@ class ItemsCalc
     inventory.ammunition.nil? ? 0 : inventory.ammunition * WEIGHTS[:ammunition]
   end
 
+  def self.WEIGHTS
+    WEIGHTS
+  end
 end

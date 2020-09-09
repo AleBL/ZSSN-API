@@ -3,14 +3,15 @@ require "rails_helper"
 RSpec.describe ItemsCalc do
   describe "items calculator" do
     let(:inventory) { create(:inventory_trade) }
-    let(:total_spec) {
-      (inventory.water      * 4) + 
-      (inventory.food       * 3) + 
-      (inventory.medication * 2) + 
-      (inventory.ammunition * 1)
-    }
 
     context "total with valid attributes" do
+      let(:total_spec) {
+        (inventory.water      * ItemsCalc.WEIGHTS[:water])      + 
+        (inventory.food       * ItemsCalc.WEIGHTS[:food])       + 
+        (inventory.medication * ItemsCalc.WEIGHTS[:medication]) + 
+        (inventory.ammunition * ItemsCalc.WEIGHTS[:ammunition])
+      }
+
       it "expected total" do
         total_calc = ItemsCalc.new(inventory: inventory).total
         expect(total_calc).to eq(total_spec)
@@ -18,10 +19,15 @@ RSpec.describe ItemsCalc do
     end
 
     context "total with invalid attributes" do
+      let(:total_not_spec) {
+        (inventory.water      * ItemsCalc.WEIGHTS[:water])      + 
+        (inventory.food       * ItemsCalc.WEIGHTS[:food])       + 
+        (inventory.medication * ItemsCalc.WEIGHTS[:medication])
+      }
+
       it "unexpected total" do
-        result_not_spec = total_spec - rand(1..99)
         total_calc = ItemsCalc.new(inventory: inventory).total
-        expect(total_calc).to_not eq(result_not_spec)
+        expect(total_calc).to_not eq(total_not_spec)
       end
     end
   end

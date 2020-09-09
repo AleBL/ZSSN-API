@@ -2,8 +2,9 @@ require "rails_helper"
 
 RSpec.describe PointsLost do
   describe "points lost" do
-    let(:points_lost)   { PointsLost.new }
-    let(:people_infected) { Person.where(infected: true) }
+    let!(:people_infected)     { create_list(:person_with_inventory, 5, infected: true) }
+    let!(:people_non_infected) { create_list(:person_with_inventory, 10)                }
+    let!(:points_lost)         { PointsLost.new                                         }
 
     context "valid attributes" do
       it "expected points lost total" do
@@ -42,7 +43,7 @@ RSpec.describe PointsLost do
     context "invalid attributes" do
       it "unexpected points lost total" do
         points_lost_total = points_lost.total
-        result_not_spec = PointsCalc.new(people: people_infected).total - rand(1..99)
+        result_not_spec = PointsCalc.new(people: people_non_infected).total
 
         expect(points_lost_total).to_not eq(result_not_spec)
       end

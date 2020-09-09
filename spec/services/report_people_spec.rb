@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe ReportPeople do
   describe "report survivors" do
-    let(:person_to) { create(:person_with_inventory) }
+    let(:person_to)   { create(:person_with_inventory) }
     let(:person_from) { create(:person_with_inventory) }
 
     context "#valid? true" do

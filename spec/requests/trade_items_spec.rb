@@ -17,7 +17,6 @@ RSpec.describe "Trade Items", type: :request do
           {
             id: person_to.inventory_id,
             ammunition: 8
-    
           }
         }
 
@@ -26,27 +25,27 @@ RSpec.describe "Trade Items", type: :request do
       end
     end
   end
-end
 
-context "invalid attributes" do
-  let(:person_to)   { create(:person_with_inventory) }
-  let(:person_from) { create(:person_infected_with_inventory) }
-  
-  it "failed to perform a new trade, person from is infected" do
-    trade_params_valid = {
-      inventory_from:
-      {
-        id: person_from.inventory_id,
-        ammunition: 2
-      },
-      inventory_to:
-      {
-        id: person_to.inventory_id,
-        medication: 10
+  context "invalid attributes" do
+    let(:person_to)   { create(:person_with_inventory) }
+    let(:person_from) { create(:person_infected_with_inventory) }
+    
+    it "failed to perform a new trade, person from is infected" do
+      trade_params_valid = {
+        inventory_from:
+        {
+          id: person_from.inventory.id,
+          ammunition: 2
+        },
+        inventory_to:
+        {
+          id: person_to.inventory.id,
+          medication: 10
+        }
       }
-    }
 
-    post "/api/trade_items", params: trade_params_valid
-    expect(response).to have_http_status(422)
+      post "/api/trade_items", params: trade_params_valid
+      expect(response).to have_http_status(422)
+    end
   end
 end
