@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ItemTrader do
   describe "Trade Items" do
     let(:inventory_from) { create(:inventory_trade) }
-    let(:inventory_to) { create(:inventory_trade) }
+    let(:inventory_to)   { create(:inventory_trade) }
 
     let(:trade_params_valid) {{
         inventory_from:
