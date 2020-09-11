@@ -1,6 +1,8 @@
 class PercentageInfected
   def percentage
     @result ||= (infected_count/total_count.to_f) * 100
+
+    return 0 if @result.nan?
     @result.round(2)
   end
 

@@ -10,19 +10,19 @@ class AverageResources
   end
 
   def average_water
-    total_resources[:water] / people.count.to_f
+    calculate_percentage(total_resources[:water])
   end
 
   def average_food
-    total_resources[:food] / people.count.to_f
+    calculate_percentage(total_resources[:food])
   end
 
   def average_medication
-    total_resources[:medication] / people.count.to_f
+    calculate_percentage(total_resources[:medication])
   end
 
   def average_ammunition
-    total_resources[:ammunition] / people.count.to_f
+    calculate_percentage(total_resources[:ammunition])
   end
 
   private
@@ -30,7 +30,7 @@ class AverageResources
   def total_resources
     return @total_resources if defined?(@total_resources)
     @total_resources = people.inject(default_hash) do |hash, person|
-      inventory = Inventory.find(person.inventory_id)
+      inventory = person.inventory
 
       hash[:water]      += inventory.water
       hash[:food]       += inventory.food
@@ -38,6 +38,13 @@ class AverageResources
       hash[:ammunition] += inventory.ammunition
       hash
     end
+  end
+
+  def calculate_percentage(resource)
+    number_people = people.count.to_f
+    return 0 if number_people.zero?
+
+    resource / number_people
   end
 
   def default_hash
