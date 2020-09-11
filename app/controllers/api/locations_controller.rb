@@ -5,9 +5,13 @@ module Api
       local = params.permit(:local)
 
       if (person.update_attributes(local))
-        render json: {status: I18n.t('status.success'), message: I18n.t('person.update_location.valid')}, status: :ok
+        render json: { status: t('status.success'), message: t('person.update_location.valid') }, status: :ok
       else
-        render json: {status: I18n.t('status.error'), message: I18n.t('person.update_location.invalid'), data: person.errors}, status: :unprocessable_entity
+        render json: {
+          status: t('status.error'), 
+          message: t('person.update_location.invalid'), 
+          data: person.errors
+        }, status: :unprocessable_entity
       end
     end
   end
