@@ -26,7 +26,7 @@ class ReportPeople
     reports = ReportPerson.where(report_from: report_from)
 
     if(reports.length >= 3)
-      report_from.update_attributes(infected: true)
+      report_from.update(infected: true)
     end
   end
 

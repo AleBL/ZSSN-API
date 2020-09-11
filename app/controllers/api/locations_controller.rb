@@ -11,7 +11,7 @@ module Api
         }, status: :not_found
       end
 
-      if (person.update_attributes(local))
+      if (person.update(local))
         render json: { status: t('status.success'), message: t('person.update_location.valid') }, status: :ok
       else
         render json: {
