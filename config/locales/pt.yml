@@ -1,13 +1,15 @@
 ---
-pt-BR:
+pt:
   status:
     success: "SUCESSO"
     error: "ERRO"
 
   messages:
     success: "Carregado com sucesso"
+    not_found: "%{class} com o id %{id} não encontrada(o)"
 
   person:
+    name: "Pessoa"
     new:
       valid: "Pessoa salva com sucesso"
       invalid: "A pessoa não foi salva"

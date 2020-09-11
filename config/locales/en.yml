@@ -6,8 +6,10 @@ en:
 
   messages:
     success: "Succcessfully Loaded"
+    not_found: "Not found %{class} with id %{id}"
 
   person:
+    name: "Person"
     new:
       valid: "Person Succcessfully Saved"
       invalid: "Person wasn`t Saved"
