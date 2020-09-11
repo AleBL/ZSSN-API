@@ -17,7 +17,7 @@ RSpec.describe TradeItems do
         inventory_to:
         {
           id: inventory_to.id,
-          water: 10,
+          water: 5,
           ammunition: 20
         }
       }}
