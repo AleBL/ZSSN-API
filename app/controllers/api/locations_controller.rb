@@ -1,7 +1,7 @@
 module Api
   class LocationsController < ApplicationController
     def update
-      person = Person.find(params[:id])
+      person = Person.find_by_id(params[:id])
       local = params.permit(:local)
 
       if (person.update_attributes(local))
