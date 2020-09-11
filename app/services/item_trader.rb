@@ -14,8 +14,8 @@ class ItemTrader
       updated_from_value = current_from_value.to_i - value.to_i
       current_to_value   = inventory_to.public_send(key)
       updated_to_value   = current_to_value.to_i + value.to_i
-      inventory_from.update_attributes!(key => updated_from_value)
-      inventory_to.update_attributes!(key => updated_to_value)
+      inventory_from.update!(key => updated_from_value)
+      inventory_to.update!(key => updated_to_value)
     end
   end
 
@@ -26,8 +26,8 @@ class ItemTrader
       updated_from_value = current_from_value.to_i + value.to_i
       current_to_value   = inventory_to.public_send(key)
       updated_to_value   = current_to_value.to_i - value.to_i
-      inventory_from.update_attributes!(key => updated_from_value)
-      inventory_to.update_attributes!(key => updated_to_value)
+      inventory_from.update!(key => updated_from_value)
+      inventory_to.update!(key => updated_to_value)
     end
   end
 end

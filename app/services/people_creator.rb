@@ -10,14 +10,11 @@ class PeopleCreator
     return false unless inventory.save
 
     person = Person.new(create_person_params[:person])
-    person.infected = false
-    person.inventory_id = inventory.id
+    person.assign_attributes(infected: false, inventory: inventory)
     
-    if person.save
-      true
-    else
-      inventory.destroy
-      false
-    end
+    return true if person.save
+
+    inventory.destroy
+    false
   end
 end

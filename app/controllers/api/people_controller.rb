@@ -6,9 +6,16 @@ module Api
     end
 
     def show
-      person = Person.find(params[:id])
+      person = Person.find_by_id(params[:id])
 
-      render json: { status: t('status.success'), message: t('messages.success'), data: person }, status: :ok
+      if person
+        render json: { status: t('status.success'), message: t('messages.success'), data: person }, status: :ok
+      else
+        render json: { 
+          status:  t('status.error'), 
+          message: t('messages.not_found', { class: t('person.name'), id: params[:id] }) 
+        }, status: :not_found
+      end
     end
 
     def create

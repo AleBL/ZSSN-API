@@ -37,6 +37,15 @@ RSpec.describe "Locations", type: :request do
         put "/api/locations/#{person.id}", params: invalid_update_location_params
         expect(response).to have_http_status(422)
       end
+
+      it "person id is invalid" do
+        update_location_params = {
+          local: "#{FFaker::Geolocation.lat}, #{FFaker::Geolocation.lng}"
+        }
+
+        put "/api/locations/0", params: update_location_params
+        expect(response).to have_http_status(404)
+      end
     end
   end
 

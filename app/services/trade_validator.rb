@@ -8,6 +8,7 @@ class TradeValidator
   end
 
   def valid?
+    return false unless inventory_from && inventory_to
     return false if infected?
 
     inventory_from_points == inventory_to_points
@@ -16,24 +17,20 @@ class TradeValidator
   private
 
   def infected?
-    person_from = Person.where(inventory_id: inventory_from.id)[0]
-    person_to   = Person.where(inventory_id: inventory_to.id)[0]
+    person_from = inventory_from.person
+    person_to   = inventory_to.person
 
-    if person_from.nil? || person_to.nil?
-      false
-    else
-      person_from.infected? || person_to.infected?
-    end
+    person_from.infected? || person_to.infected?
   end
 
   def inventory_from_points
     params_from    = trade_params[:inventory_from]
 
     inventory_from_trade = Inventory.new do |i|
-      i.water      = params_from["water"]
-      i.food       = params_from["food"]
-      i.medication = params_from["medication"]
-      i.ammunition = params_from["ammunition"]
+      i.water      = params_from[:water]
+      i.food       = params_from[:food]
+      i.medication = params_from[:medication]
+      i.ammunition = params_from[:ammunition]
     end
 
     ItemsCalc.new(inventory: inventory_from_trade).total
@@ -43,10 +40,10 @@ class TradeValidator
     params_to       = trade_params[:inventory_to]
 
     inventory_to_trade = Inventory.new do |i|
-      i.water      = params_to["water"]
-      i.food       = params_to["food"]
-      i.medication = params_to["medication"]
-      i.ammunition = params_to["ammunition"]
+      i.water      = params_to[:water]
+      i.food       = params_to[:food]
+      i.medication = params_to[:medication]
+      i.ammunition = params_to[:ammunition]
     end
 
     ItemsCalc.new(inventory: inventory_to_trade).total
