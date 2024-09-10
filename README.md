@@ -6,7 +6,7 @@
 - `Ruby 2.6.3`
 
 # Rails Version
-- `Rails 6.0.2`
+- `Rails 7.1`
 
 # Features
 - Register survivor

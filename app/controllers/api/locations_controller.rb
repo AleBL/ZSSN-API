@@ -7,7 +7,7 @@ module Api
       unless person
         return render json: { 
           status:  t('status.error'), 
-          message: t('messages.not_found', { class: t('person.name'), id: params[:id] }) 
+          message: t('messages.not_found', class: t('person.name'), id: params[:id]) 
         }, status: :not_found
       end
 
