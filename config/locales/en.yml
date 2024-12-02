@@ -25,6 +25,7 @@ en:
       invalid: "Location is invalid"
 
   inventory:
+    name: "Inventory"
     trade:
       valid: "Trade done"
       invalid: "Trade failed"
