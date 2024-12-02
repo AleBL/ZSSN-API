@@ -10,6 +10,9 @@ Lint/EmptyFile:
   Exclude:
     - 'db/seeds.rb'
 
+Metrics/AbcSize:
+  Enabled: false
+
 Metrics/BlockLength:
   Enabled: false
 

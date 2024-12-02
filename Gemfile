@@ -17,6 +17,10 @@ group :development, :test do
   gem 'pry', '~> 0.14.2'
   gem 'rspec-rails', '~> 7.0', '>= 7.0.1'
   gem 'rubocop', '~> 1.66', '>= 1.66.1'
+  gem 'rubocop-factory_bot', '~> 2.26', '>= 2.26.1'
+  gem 'rubocop-rails', '~> 2.26', '>= 2.26.2'
+  gem 'rubocop-rspec', '~> 3.0', '>= 3.0.5'
+  gem 'rubocop-rspec_rails', '~> 2.30'
 end
 
 group :test do

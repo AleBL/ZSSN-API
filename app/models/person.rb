@@ -10,7 +10,7 @@ class Person < ApplicationRecord
   validate :check_local
 
   def check_local
-    return errors.add(:local, I18n.t('person.location.invalid')) unless GEOCOORDINATES_REGEX.match?(local)
+    return errors.add(:local, I18n.t('person.location.invalid')) unless valid_geocoordinates?(local)
 
     lat, long = local.split(',').map(&:strip).map(&:to_f)
 
@@ -20,5 +20,11 @@ class Person < ApplicationRecord
     return unless !valid_latitude || !valid_longitude
 
     errors.add(:local, I18n.t('person.location.invalid'))
+  end
+
+  private
+
+  def valid_geocoordinates?(coordinates)
+    GEOCOORDINATES_REGEX.match?(coordinates)
   end
 end
