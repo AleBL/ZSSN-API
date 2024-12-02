@@ -25,4 +25,14 @@ class PointsLost
   def ammunition_points
     points_calc.ammunition_points
   end
+
+  def lost_points_items
+    {
+      water: water_points,
+      food: food_points,
+      medication: medication_points,
+      ammunition: ammunition_points,
+      total: total
+    }
+  end
 end

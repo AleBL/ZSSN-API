@@ -4,20 +4,20 @@ module Api
       report_to   = Person.find_by_id(report_params[:report_to])
       report_from = Person.find_by_id(report_params[:report_from])
 
-      report = ::ReportPeople.new(report_to:   report_to,
+      report = ::ReportPeople.new(report_to: report_to,
                                   report_from: report_from)
 
       if report.valid?
-        render json: { status: t('status.success'), message: t('person.report.valid') }, status: :ok
+        render_success(t('person.report.valid'))
       else
-        render json: { status: t('status.error'), message: t('person.report.invalid') }, status: :unprocessable_entity
+        render_unprocessable_entity_error(t('person.report.invalid'))
       end
     end
 
     private
+
     def report_params
       params.permit(:report_to, :report_from)
     end
-
   end
 end

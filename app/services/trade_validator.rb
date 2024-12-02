@@ -24,7 +24,7 @@ class TradeValidator
   end
 
   def inventory_from_points
-    params_from    = trade_params[:inventory_from]
+    params_from = trade_params[:inventory_from]
 
     inventory_from_trade = Inventory.new do |i|
       i.water      = params_from[:water]
@@ -37,7 +37,7 @@ class TradeValidator
   end
 
   def inventory_to_points
-    params_to       = trade_params[:inventory_to]
+    params_to = trade_params[:inventory_to]
 
     inventory_to_trade = Inventory.new do |i|
       i.water      = params_to[:water]

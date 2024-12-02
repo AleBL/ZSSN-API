@@ -19,8 +19,8 @@ class TradeItems
 
   def valid_trade?
     TradeValidator.new(inventory_from: inventory_from,
-                       inventory_to:   inventory_to,
-                       trade_params:   trade_params).valid?
+                       inventory_to: inventory_to,
+                       trade_params: trade_params).valid?
   end
 
   def perform_trade
@@ -30,9 +30,7 @@ class TradeItems
 
   def item_trader
     @item_trader ||= ItemTrader.new(inventory_from: inventory_from,
-                                    inventory_to:   inventory_to,
-                                    trade_params:   trade_params)
+                                    inventory_to: inventory_to,
+                                    trade_params: trade_params)
   end
-
-
 end

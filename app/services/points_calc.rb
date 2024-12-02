@@ -1,5 +1,5 @@
 class PointsCalc
-  WEIGHTS = { water: 4, food: 3, medication: 2, ammunition: 1 }
+  WEIGHTS = { water: 4, food: 3, medication: 2, ammunition: 1 }.freeze
   attr_reader :people
 
   def initialize(people:)
@@ -28,18 +28,24 @@ class PointsCalc
 
   def total_points
     return @total_points if defined?(@total_points)
-    @total_points = people.inject(default_hash) do |hash, person|
+
+    @total_points = calculate_total_points
+  end
+
+  def default_hash
+    { water: 0, food: 0, medication: 0, ammunition: 0 }
+  end
+
+  private
+
+  def calculate_total_points
+    people.each_with_object(default_hash) do |person, hash|
       inventory = person.inventory
 
       hash[:water]      += inventory.water
       hash[:food]       += inventory.food
       hash[:medication] += inventory.medication
       hash[:ammunition] += inventory.ammunition
-      hash
     end
-  end
-
-  def default_hash
-    { water: 0, food: 0, medication: 0, ammunition: 0 }
   end
 end

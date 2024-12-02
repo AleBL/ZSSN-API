@@ -1,7 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Inventory, type: :model do
-
   describe 'validations' do
     it { should validate_presence_of(:water) }
     it { should validate_presence_of(:food) }
@@ -18,53 +17,53 @@ RSpec.describe Inventory, type: :model do
 
   let(:inventory) { build(:inventory) }
 
-  context "Valid Inventory" do
-    it "It is a valid inventory" do
+  context 'Valid Inventory' do
+    it 'It is a valid inventory' do
       expect(inventory.valid?).to be_truthy
     end
   end
 
-  context "Invalid Inventory" do
-    it "water is nil" do
-      inventory.water  = nil;
+  context 'Invalid Inventory' do
+    it 'water is nil' do
+      inventory.water = nil
       expect(inventory.valid?).to be_falsy
     end
 
-    it "food is nil" do
-      inventory.food  = nil;
+    it 'food is nil' do
+      inventory.food = nil
       expect(inventory.valid?).to be_falsy
     end
 
-    it "medication is nil" do
-      inventory.medication  = nil;
+    it 'medication is nil' do
+      inventory.medication = nil
       expect(inventory.valid?).to be_falsy
     end
 
-    it "ammunition is nill" do
-      inventory.ammunition  = nil;
+    it 'ammunition is nill' do
+      inventory.ammunition = nil
       expect(inventory.valid?).to be_falsy
     end
 
-    it "water is negative" do
-      inventory.water  = FFaker::Random.rand(-99..-1)
-
-      expect(inventory.valid?).to be_falsy
-    end
-
-    it "food is negative" do
-      inventory.food  = FFaker::Random.rand(-99..-1)
+    it 'water is negative' do
+      inventory.water = FFaker::Random.rand(-99..-1)
 
       expect(inventory.valid?).to be_falsy
     end
 
-    it "medication is negative" do
-      inventory.medication  = FFaker::Random.rand(-99..-1)
+    it 'food is negative' do
+      inventory.food = FFaker::Random.rand(-99..-1)
 
       expect(inventory.valid?).to be_falsy
     end
 
-    it "ammunition is negative" do
-      inventory.ammunition  = FFaker::Random.rand(-99..-1)
+    it 'medication is negative' do
+      inventory.medication = FFaker::Random.rand(-99..-1)
+
+      expect(inventory.valid?).to be_falsy
+    end
+
+    it 'ammunition is negative' do
+      inventory.ammunition = FFaker::Random.rand(-99..-1)
 
       expect(inventory.valid?).to be_falsy
     end
