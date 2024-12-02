@@ -7,29 +7,34 @@ class ItemTrader
     @trade_params   = trade_params
   end
 
-  def remove_from
-    trade_params[:inventory_from].each do |key, value|
-      next if ['id', :id].include?(key) || !inventory_from.respond_to?(key)
+  def perform_trade
+    process_trade(:from)
+    process_trade(:to)
+  end
 
-      current_from_value = inventory_from.public_send(key)
-      updated_from_value = current_from_value.to_i - value.to_i
-      current_to_value   = inventory_to.public_send(key)
-      updated_to_value   = current_to_value.to_i + value.to_i
-      inventory_from.update!(key => updated_from_value)
-      inventory_to.update!(key => updated_to_value)
+  private
+
+  def process_trade(direction)
+    inventories = {
+      from: inventory_from,
+      to: inventory_to
+    }
+
+    trade_params[:"inventory_#{direction}"].each do |key, value|
+      next if ['id', :id].include?(key) || !inventories[:from].respond_to?(key)
+
+      adjust_inventory(
+        inventories[:from], key, -value.to_i
+      )
+      adjust_inventory(
+        inventories[:to], key, value.to_i
+      )
     end
   end
 
-  def add_to
-    trade_params[:inventory_to].each do |key, value|
-      next if ['id', :id].include?(key) || !inventory_to.respond_to?(key)
-
-      current_from_value = inventory_from.public_send(key)
-      updated_from_value = current_from_value.to_i + value.to_i
-      current_to_value   = inventory_to.public_send(key)
-      updated_to_value   = current_to_value.to_i - value.to_i
-      inventory_from.update!(key => updated_from_value)
-      inventory_to.update!(key => updated_to_value)
-    end
+  def adjust_inventory(inventory, key, adjustment)
+    current_value = inventory.public_send(key).to_i
+    updated_value = current_value + adjustment
+    inventory.update!(key => updated_value)
   end
 end

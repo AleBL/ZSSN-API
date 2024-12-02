@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TradeItems do
   describe 'trade items' do
-    context '#valid? true' do
+    context '#process_trade? true' do
       let(:person_from)    { create(:person_with_inventory) }
       let(:person_to)      { create(:person_with_inventory) }
       let(:inventory_from) { person_from.inventory          }
@@ -28,11 +28,11 @@ RSpec.describe TradeItems do
         trade_items = TradeItems.new(inventory_from: inventory_from,
                                      inventory_to: inventory_to,
                                      trade_params: trade_params_valid)
-        expect(trade_items.valid?).to be_truthy
+        expect(trade_items.process_trade?).to be_truthy
       end
     end
 
-    context '#valid? false' do
+    context '#process_trade? false' do
       let(:person_from_infected)    { create(:person_infected_with_inventory) }
       let(:person_to_infected)      { create(:person_infected_with_inventory) }
       let(:inventory_from_infected) { person_from_infected.inventory          }
@@ -59,14 +59,14 @@ RSpec.describe TradeItems do
                                      inventory_to: inventory_to_infected,
                                      trade_params: trade_params_invalid)
 
-        expect(trade_items.valid?).to be_falsey
+        expect(trade_items.process_trade?).to be_falsey
       end
 
       it 'trade with invalid attributes, person_from infected' do
         trade_items = TradeItems.new(inventory_from: inventory_from_infected,
                                      inventory_to: inventory_to_infected,
                                      trade_params: trade_params_invalid)
-        expect(trade_items.valid?).to be_falsey
+        expect(trade_items.process_trade?).to be_falsey
       end
     end
   end

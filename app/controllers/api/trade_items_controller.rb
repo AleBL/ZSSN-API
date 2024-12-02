@@ -8,7 +8,7 @@ module Api
                                inventory_to: inventory_to,
                                trade_params: trade_params)
 
-      if trade.valid?
+      if trade.process_trade?
         render_success(t('inventory.trade.valid'))
       else
         render_unprocessable_entity_error(t('inventory.trade.invalid'))

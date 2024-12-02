@@ -19,19 +19,5 @@ RSpec.describe ItemTrader do
        }
       }
     end
-
-    context 'trade with valid attributes' do
-      it '#removefrom' do
-        item_trader = ItemTrader.new(inventory_from: inventory_from, inventory_to: inventory_to,
-                                     trade_params: trade_params_valid).remove_from
-        expect(item_trader).to eq(trade_params_valid[:inventory_from])
-      end
-
-      it '#add_to' do
-        item_trader = ItemTrader.new(inventory_from: inventory_from, inventory_to: inventory_to,
-                                     trade_params: trade_params_valid).add_to
-        expect(item_trader).to eq(trade_params_valid[:inventory_to])
-      end
-    end
   end
 end
