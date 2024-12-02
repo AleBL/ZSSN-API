@@ -24,13 +24,23 @@ RSpec.describe Person do
       expect(person).not_to be_valid
     end
 
+    it 'is not a valid person, longitude is not valid' do
+      person.local = "#{FFaker::Lorem.sentence}, #{FFaker::Geolocation.lng}"
+      expect(person).not_to be_valid
+    end
+
     it 'is not a valid person, latitude is not valid' do
       person.local = "#{FFaker::Geolocation.lat}, #{FFaker::Lorem.sentence}"
       expect(person).not_to be_valid
     end
 
-    it 'is not a valid person, longitude is not valid' do
-      person.local = "#{FFaker::Lorem.sentence}, #{FFaker::Geolocation.lng}"
+    it 'is not a valid person, latitude does not exist' do
+      person.local = "#{FFaker::Random.rand(100..160.0)}, #{FFaker::Geolocation.lng}"
+      expect(person).not_to be_valid
+    end
+
+    it 'is not a valid person, longitude does not exist' do
+      person.local = "#{FFaker::Geolocation.lat}, #{FFaker::Random.rand(200..260.0)}"
       expect(person).not_to be_valid
     end
   end

@@ -23,5 +23,8 @@ module ZssnAlessandrobl
 
     config.i18n.available_locales = %i[en pt]
     config.i18n.default_locale = :en
+
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, key: 'zssn_api'
   end
 end

@@ -16,9 +16,12 @@ class Person < ApplicationRecord
     valid_latitude = lat.between?(-90, 90)
     valid_longitude = long.between?(-180, 180)
 
-    return unless !valid_latitude || !valid_longitude
+    if !valid_latitude || !valid_longitude
+      errors.add(:local, I18n.t('person.location.invalid'))
+      return false
+    end
 
-    errors.add(:local, I18n.t('person.location.invalid'))
+    true
   end
 
   private

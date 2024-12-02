@@ -3,11 +3,14 @@ require 'rails_helper'
 RSpec.describe AverageResources do
   describe 'average resources' do
     before do
-      @people_infected = create_list(:person_with_inventory, 5, infected: true)
-      @people_non_infected = create_list(:person_with_inventory, 10)
-      @number_non_infected = @people_non_infected.count.to_f
-      @average_resources = described_class.new
-      @inventories_people = @people_non_infected.each_with_object({ water: 0, food: 0, medication: 0, ammunition: 0 }) do |person, hash|
+      create_list(:person_with_inventory, 5, infected: true)
+    end
+
+    let!(:people_non_infected) { create_list(:person_with_inventory, 10)                }
+    let!(:number_non_infected) { people_non_infected.try(:count).to_f                   }
+    let!(:average_resources)   { described_class.new }
+    let!(:inventories_people)  do
+      people_non_infected.each_with_object({ water: 0, food: 0, medication: 0, ammunition: 0 }) do |person, hash|
         inventory = Inventory.find(person.inventory_id)
 
         hash[:water]      += inventory.water
@@ -19,45 +22,45 @@ RSpec.describe AverageResources do
 
     context 'with valid attributes' do
       it 'expected average items is valid' do
-        average_items = @average_resources.average_items
-        result_spec = (@inventories_people[:water]      / @number_non_infected) +
-                      (@inventories_people[:food]       / @number_non_infected) +
-                      (@inventories_people[:medication] / @number_non_infected) +
-                      (@inventories_people[:ammunition] / @number_non_infected)
+        average_items = average_resources.average_items
+        result_spec = (inventories_people[:water]      / number_non_infected) +
+                      (inventories_people[:food]       / number_non_infected) +
+                      (inventories_people[:medication] / number_non_infected) +
+                      (inventories_people[:ammunition] / number_non_infected)
         expect(average_items).to eq(result_spec)
       end
 
       it 'expected average water' do
-        average_water = @average_resources.average_water
-        result_spec   = (@inventories_people[:water] / @number_non_infected)
+        average_water = average_resources.average_water
+        result_spec   = (inventories_people[:water] / number_non_infected)
         expect(average_water).to eq(result_spec)
       end
 
       it 'expected average food' do
-        average_food = @average_resources.average_food
-        result_spec  = @inventories_people[:food] / @number_non_infected
+        average_food = average_resources.average_food
+        result_spec  = inventories_people[:food] / number_non_infected
         expect(average_food).to eq(result_spec)
       end
 
       it 'expected average medication' do
-        average_medication = @average_resources.average_medication
-        result_spec        = @inventories_people[:medication] / @number_non_infected
+        average_medication = average_resources.average_medication
+        result_spec        = inventories_people[:medication] / number_non_infected
         expect(average_medication).to eq(result_spec)
       end
 
       it 'expected average ammunition' do
-        average_ammunition = @average_resources.average_ammunition
-        result_spec        = @inventories_people[:ammunition] / @number_non_infected
+        average_ammunition = average_resources.average_ammunition
+        result_spec        = inventories_people[:ammunition] / number_non_infected
         expect(average_ammunition).to eq(result_spec)
       end
     end
 
     context 'with invalid attributes' do
       it 'unexpected total' do
-        average_items = @average_resources.average_items
-        result_spec   = (@inventories_people[:water]      / @number_non_infected) +
-                        (@inventories_people[:food]       / @number_non_infected) +
-                        (@inventories_people[:medication] / @number_non_infected)
+        average_items = average_resources.average_items
+        result_spec   = (inventories_people[:water]      / number_non_infected) +
+                        (inventories_people[:food]       / number_non_infected) +
+                        (inventories_people[:medication] / number_non_infected)
         expect(average_items).not_to eq(result_spec)
       end
     end

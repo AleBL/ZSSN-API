@@ -19,6 +19,13 @@ RSpec.describe 'People' do
         get '/api/people/0'
         expect(response).to have_http_status(:not_found)
       end
+
+      context 'when locale is sending' do
+        it 'get people with status code 200' do
+          get '/api/people?locale=en'
+          expect(response).to have_http_status(:ok)
+        end
+      end
     end
   end
 
