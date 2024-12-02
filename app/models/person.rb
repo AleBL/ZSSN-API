@@ -3,7 +3,6 @@ class Person < ApplicationRecord
 
   validates :name, presence: true
   validates :local, presence: true
-  validates :inventory_id, presence: true
 
   belongs_to :inventory
 

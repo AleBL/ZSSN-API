@@ -6,25 +6,15 @@ class PointsLost
     @points_calc = PointsCalc.new(people: people)
   end
 
-  def total
-    points_calc.total
-  end
+  delegate :total, to: :points_calc
 
-  def water_points
-    points_calc.water_points
-  end
+  delegate :water_points, to: :points_calc
 
-  def food_points
-    points_calc.food_points
-  end
+  delegate :food_points, to: :points_calc
 
-  def medication_points
-    points_calc.medication_points
-  end
+  delegate :medication_points, to: :points_calc
 
-  def ammunition_points
-    points_calc.ammunition_points
-  end
+  delegate :ammunition_points, to: :points_calc
 
   def lost_points_items
     {

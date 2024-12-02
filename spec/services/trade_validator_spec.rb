@@ -7,7 +7,7 @@ RSpec.describe TradeValidator do
     let(:inventory_from) { person_from.inventory          }
     let(:inventory_to)   { person_to.inventory            }
 
-    context '#valid? true' do
+    describe '#valid? true' do
       it 'trade with valid attributes' do
         trade_params_valid = {
           inventory_from:
@@ -23,14 +23,14 @@ RSpec.describe TradeValidator do
           }
         }
 
-        trade_validator = TradeValidator.new(inventory_from: inventory_from,
-                                             inventory_to: inventory_to,
-                                             trade_params: trade_params_valid)
-        expect(trade_validator.valid?).to be_truthy
+        trade_validator = described_class.new(inventory_from: inventory_from,
+                                              inventory_to: inventory_to,
+                                              trade_params: trade_params_valid)
+        expect(trade_validator).to be_valid
       end
     end
 
-    context '#valid? false' do
+    describe '#valid? false' do
       let(:person_from_infected)    { create(:person_infected_with_inventory) }
       let(:person_to_infected)      { create(:person_infected_with_inventory) }
       let(:inventory_from_infected) { person_from_infected.inventory          }
@@ -50,10 +50,10 @@ RSpec.describe TradeValidator do
           }
         }
 
-        trade_validator = TradeValidator.new(inventory_from: inventory_from_infected,
-                                             inventory_to: inventory_to_infected,
-                                             trade_params: trade_params_invalid)
-        expect(trade_validator.valid?).to be_falsey
+        trade_validator = described_class.new(inventory_from: inventory_from_infected,
+                                              inventory_to: inventory_to_infected,
+                                              trade_params: trade_params_invalid)
+        expect(trade_validator).not_to be_valid
       end
 
       it 'trade with invalid attributes, person_from infected' do
@@ -71,10 +71,10 @@ RSpec.describe TradeValidator do
           }
         }
 
-        trade_validator = TradeValidator.new(inventory_from: inventory_from_infected,
-                                             inventory_to: inventory_to_infected,
-                                             trade_params: trade_params_invalid)
-        expect(trade_validator.valid?).to be_falsey
+        trade_validator = described_class.new(inventory_from: inventory_from_infected,
+                                              inventory_to: inventory_to_infected,
+                                              trade_params: trade_params_invalid)
+        expect(trade_validator).not_to be_valid
       end
     end
   end

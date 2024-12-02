@@ -1,8 +1,8 @@
 module Api
   class TradeItemsController < ApplicationController
     def create
-      inventory_from = Inventory.find_by_id(trade_params[:inventory_from][:id])
-      inventory_to   = Inventory.find_by_id(trade_params[:inventory_to][:id])
+      inventory_from = Inventory.find_by(id: trade_params[:inventory_from][:id])
+      inventory_to   = Inventory.find_by(id: trade_params[:inventory_to][:id])
 
       trade = ::TradeItems.new(inventory_from: inventory_from,
                                inventory_to: inventory_to,

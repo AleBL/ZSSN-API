@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe 'Trade Items', type: :request do
+RSpec.describe 'Trade Items' do
   describe 'post /api/trade_items' do
-    context 'valid attributes' do
+    context 'with valid attributes' do
       let(:person_to)   { create(:person_with_inventory) }
       let(:person_from) { create(:person_with_inventory) }
 
@@ -21,12 +21,12 @@ RSpec.describe 'Trade Items', type: :request do
         }
 
         post '/api/trade_items', params: trade_params_valid
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
   end
 
-  context 'invalid attributes' do
+  context 'with invalid attributes' do
     let(:person_to)   { create(:person_with_inventory) }
     let(:person_from) { create(:person_infected_with_inventory) }
 
@@ -45,7 +45,7 @@ RSpec.describe 'Trade Items', type: :request do
       }
 
       post '/api/trade_items', params: trade_params_valid
-      expect(response).to have_http_status(422)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 end

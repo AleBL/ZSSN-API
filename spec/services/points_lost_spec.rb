@@ -4,9 +4,9 @@ RSpec.describe PointsLost do
   describe 'points lost' do
     let!(:people_infected)     { create_list(:person_with_inventory, 5, infected: true) }
     let!(:people_non_infected) { create_list(:person_with_inventory, 10)                }
-    let!(:points_lost)         { PointsLost.new                                         }
+    let!(:points_lost)         { described_class.new }
 
-    context 'valid attributes' do
+    context 'with valid attributes' do
       it 'expected points lost total' do
         points_lost_total = points_lost.total
         result_spec = PointsCalc.new(people: people_infected).total
@@ -39,12 +39,12 @@ RSpec.describe PointsLost do
       end
     end
 
-    context 'invalid attributes' do
+    context 'with invalid attributes' do
       it 'unexpected points lost total' do
         points_lost_total = points_lost.total
         result_not_spec = PointsCalc.new(people: people_non_infected).total
 
-        expect(points_lost_total).to_not eq(result_not_spec)
+        expect(points_lost_total).not_to eq(result_not_spec)
       end
     end
   end

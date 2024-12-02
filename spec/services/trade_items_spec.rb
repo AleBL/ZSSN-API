@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TradeItems do
   describe 'trade items' do
-    context '#process_trade? true' do
+    describe '#process_trade? true' do
       let(:person_from)    { create(:person_with_inventory) }
       let(:person_to)      { create(:person_with_inventory) }
       let(:inventory_from) { person_from.inventory          }
@@ -25,14 +25,14 @@ RSpec.describe TradeItems do
       end
 
       it 'trade with valid attributes' do
-        trade_items = TradeItems.new(inventory_from: inventory_from,
-                                     inventory_to: inventory_to,
-                                     trade_params: trade_params_valid)
-        expect(trade_items.process_trade?).to be_truthy
+        trade_items = described_class.new(inventory_from: inventory_from,
+                                          inventory_to: inventory_to,
+                                          trade_params: trade_params_valid)
+        expect(trade_items).to be_process_trade
       end
     end
 
-    context '#process_trade? false' do
+    describe '#process_trade? false' do
       let(:person_from_infected)    { create(:person_infected_with_inventory) }
       let(:person_to_infected)      { create(:person_infected_with_inventory) }
       let(:inventory_from_infected) { person_from_infected.inventory          }
@@ -46,27 +46,22 @@ RSpec.describe TradeItems do
             ammunition: 25
           },
           inventory_to:
-       {
-         id: inventory_to_infected.id,
-         food: 10,
-         medication: 20
-       }
+          {
+            id: inventory_to_infected.id,
+            food: 10,
+            medication: 20
+          }
         }
       end
 
-      it 'trade with invalid attributes, person_to infected' do
-        trade_items = TradeItems.new(inventory_from: inventory_from_infected,
-                                     inventory_to: inventory_to_infected,
-                                     trade_params: trade_params_invalid)
+      context 'when any person is infected' do
+        it do
+          trade_items = described_class.new(inventory_from: inventory_from_infected,
+                                            inventory_to: inventory_to_infected,
+                                            trade_params: trade_params_invalid)
 
-        expect(trade_items.process_trade?).to be_falsey
-      end
-
-      it 'trade with invalid attributes, person_from infected' do
-        trade_items = TradeItems.new(inventory_from: inventory_from_infected,
-                                     inventory_to: inventory_to_infected,
-                                     trade_params: trade_params_invalid)
-        expect(trade_items.process_trade?).to be_falsey
+          expect(trade_items).not_to be_process_trade
+        end
       end
     end
   end

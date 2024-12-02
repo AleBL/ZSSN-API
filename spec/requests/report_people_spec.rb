@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe 'ReportPeople', type: :request do
+RSpec.describe 'ReportPeople' do
   let(:person_to)   { create(:person_with_inventory) }
   let(:person_from) { create(:person_with_inventory) }
 
   describe 'POST /api/report_people' do
-    context 'valid attributes' do
+    context 'with valid attributes' do
       let(:report_valid_params) do
         {
           report_to: person_to.id,
@@ -32,7 +32,7 @@ RSpec.describe 'ReportPeople', type: :request do
       end
     end
 
-    context 'invalid params' do
+    context 'with invalid params' do
       let(:report_invalid_params) do
         {
           report_to: person_to.id,

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe 'Locations', type: :request do
+RSpec.describe 'Locations' do
   describe 'PUT /api/locations' do
-    context 'valid attributes' do
+    context 'with valid attributes' do
       let(:person) { create(:person_with_inventory) }
 
       it 'update location successfully' do
@@ -11,13 +11,11 @@ RSpec.describe 'Locations', type: :request do
         }
 
         put "/api/locations/#{person.id}", params: update_location_params
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
-  end
 
-  describe 'PUT /api/locations' do
-    context 'invalid attributes passed as a parameter' do
+    context 'with invalid attributes passed as a parameter' do
       let(:person) { create(:person_with_inventory) }
 
       it 'latitude is valid' do
@@ -26,7 +24,7 @@ RSpec.describe 'Locations', type: :request do
         }
 
         put "/api/locations/#{person.id}", params: invalid_update_location_params
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_content)
       end
 
       it 'longitude is invalid' do
@@ -35,7 +33,7 @@ RSpec.describe 'Locations', type: :request do
         }
 
         put "/api/locations/#{person.id}", params: invalid_update_location_params
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_content)
       end
 
       it 'person id is invalid' do
@@ -44,7 +42,7 @@ RSpec.describe 'Locations', type: :request do
         }
 
         put '/api/locations/0', params: update_location_params
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

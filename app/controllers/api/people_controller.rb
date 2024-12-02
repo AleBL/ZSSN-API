@@ -6,7 +6,7 @@ module Api
     end
 
     def show
-      person = Person.find_by_id(params[:id])
+      person = Person.find_by(id: params[:id])
 
       if person.present?
         render_success(t('messages.success'), person)

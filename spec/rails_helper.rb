@@ -6,7 +6,7 @@ require File.expand_path('../config/environment', __dir__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'factory_bot'
-Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
+Rails.root.glob('spec/support/**/*.rb').sort.each { |f| require f }
 
 if ENV['RAILS_ENV'] == 'test'
   require 'simplecov'
@@ -28,7 +28,7 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
-  config.fixture_path = "#{Rails.root}/spec/fixtures"
+  config.fixture_path = Rails.root.join('spec/fixtures').to_s
 
   config.use_transactional_fixtures = true
 

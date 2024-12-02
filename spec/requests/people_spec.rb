@@ -1,29 +1,29 @@
 require 'rails_helper'
 
-RSpec.describe 'People', type: :request do
+RSpec.describe 'People' do
   describe 'GET /api/people' do
     let!(:person) { create(:person_with_inventory) }
 
-    context 'get people successfully' do
+    context 'when getting people successfully' do
       it 'get people with status code 200' do
         get '/api/people'
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
 
       it 'get people by id with status code 200' do
         get "/api/people/#{person.id}"
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
 
       it 'get people by id with status code 404' do
         get '/api/people/0'
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
 
   describe 'POST /api/people' do
-    context 'valid attributes' do
+    context 'with valid attributes' do
       let(:params_valid_create_person) do
         {
           person: attributes_for(:person),
@@ -38,8 +38,8 @@ RSpec.describe 'People', type: :request do
       end
     end
 
-    context 'does not create a new person' do
-      context 'invalid person attributes' do
+    context 'when a new person is not created' do
+      context 'with invalid person attributes' do
         let(:params_invalid_create_person) do
           {
             inventory: attributes_for(:inventory)
@@ -63,7 +63,7 @@ RSpec.describe 'People', type: :request do
         end
       end
 
-      context 'invalid inventory attributes' do
+      context 'with invalid inventory attributes' do
         let(:params_invalid_create_person) do
           {
             person: attributes_for(:person)
