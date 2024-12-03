@@ -1,72 +1,71 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe Inventory, type: :model do
-
-  describe 'validations' do
-    it { should validate_presence_of(:water) }
-    it { should validate_presence_of(:food) }
-    it { should validate_presence_of(:medication) }
-    it { should validate_presence_of(:ammunition) }
-
-    it { should have_one(:person) }
-
-    it { should validate_numericality_of(:water).is_greater_than_or_equal_to(0) }
-    it { should validate_numericality_of(:food).is_greater_than_or_equal_to(0) }
-    it { should validate_numericality_of(:medication).is_greater_than_or_equal_to(0) }
-    it { should validate_numericality_of(:ammunition).is_greater_than_or_equal_to(0) }
-  end
-
+RSpec.describe Inventory do
   let(:inventory) { build(:inventory) }
 
-  context "Valid Inventory" do
-    it "It is a valid inventory" do
-      expect(inventory.valid?).to be_truthy
+  describe 'validations' do
+    it { is_expected.to validate_presence_of(:water) }
+    it { is_expected.to validate_presence_of(:food) }
+    it { is_expected.to validate_presence_of(:medication) }
+    it { is_expected.to validate_presence_of(:ammunition) }
+
+    it { is_expected.to have_one(:person) }
+
+    it { is_expected.to validate_numericality_of(:water).is_greater_than_or_equal_to(0) }
+    it { is_expected.to validate_numericality_of(:food).is_greater_than_or_equal_to(0) }
+    it { is_expected.to validate_numericality_of(:medication).is_greater_than_or_equal_to(0) }
+    it { is_expected.to validate_numericality_of(:ammunition).is_greater_than_or_equal_to(0) }
+  end
+
+  context 'when the inventory is valid' do
+    it 'is a valid inventory' do
+      expect(inventory).to be_valid
     end
   end
 
-  context "Invalid Inventory" do
-    it "water is nil" do
-      inventory.water  = nil;
-      expect(inventory.valid?).to be_falsy
+  context 'when the inventory is invalid' do
+    it 'water is nil' do
+      inventory.water = nil
+      expect(inventory).not_to be_valid
     end
 
-    it "food is nil" do
-      inventory.food  = nil;
-      expect(inventory.valid?).to be_falsy
+    it 'food is nil' do
+      inventory.food = nil
+      expect(inventory).not_to be_valid
     end
 
-    it "medication is nil" do
-      inventory.medication  = nil;
-      expect(inventory.valid?).to be_falsy
+    it 'medication is nil' do
+      inventory.medication = nil
+      expect(inventory).not_to be_valid
     end
 
-    it "ammunition is nill" do
-      inventory.ammunition  = nil;
-      expect(inventory.valid?).to be_falsy
+    it 'ammunition is nill' do
+      inventory.ammunition = nil
+      expect(inventory).not_to be_valid
     end
 
-    it "water is negative" do
-      inventory.water  = FFaker::Random.rand(-99..-1)
+    it 'water is negative' do
+      inventory.water = FFaker::Random.rand(-99..-1)
 
-      expect(inventory.valid?).to be_falsy
+      expect(inventory).not_to be_valid
     end
 
-    it "food is negative" do
-      inventory.food  = FFaker::Random.rand(-99..-1)
+    it 'food is negative' do
+      inventory.food = FFaker::Random.rand(-99..-1)
 
-      expect(inventory.valid?).to be_falsy
+      expect(inventory).not_to be_valid
     end
 
-    it "medication is negative" do
-      inventory.medication  = FFaker::Random.rand(-99..-1)
+    it 'medication is negative' do
+      inventory.medication = FFaker::Random.rand(-99..-1)
 
-      expect(inventory.valid?).to be_falsy
+      expect(inventory).not_to be_valid
     end
 
-    it "ammunition is negative" do
-      inventory.ammunition  = FFaker::Random.rand(-99..-1)
+    it 'ammunition is negative' do
+      inventory.ammunition = FFaker::Random.rand(-99..-1)
 
-      expect(inventory.valid?).to be_falsy
+      expect(inventory).not_to be_valid
     end
   end
 end

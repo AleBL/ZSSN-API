@@ -15,9 +15,9 @@ class ReportPeople
 
   def report_not_infected
     report = ReportPerson.new(report_to: report_to, report_from: report_from)
-    
+
     return false unless report.save
-    
+
     verify_reports
     true
   end
@@ -25,9 +25,8 @@ class ReportPeople
   def verify_reports
     reports = ReportPerson.where(report_from: report_from)
 
-    if(reports.length >= 3)
-      report_from.update(infected: true)
-    end
-  end
+    return unless reports.length >= 3
 
+    report_from.update(infected: true)
+  end
 end

@@ -1,52 +1,49 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe "Locations", type: :request do
-  describe "PUT /api/locations" do
-    context "valid attributes" do
+RSpec.describe 'Locations' do
+  describe 'PUT /api/locations' do
+    context 'with valid attributes' do
       let(:person) { create(:person_with_inventory) }
 
-      it "update location successfully" do
+      it 'update location successfully' do
         update_location_params = {
           local: "#{FFaker::Geolocation.lat}, #{FFaker::Geolocation.lng}"
         }
 
         put "/api/locations/#{person.id}", params: update_location_params
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
-  end
 
-  describe "PUT /api/locations" do
-    context "invalid attributes passed as a parameter" do
+    context 'with invalid attributes passed as a parameter' do
       let(:person) { create(:person_with_inventory) }
 
-      it "latitude is valid" do
+      it 'latitude is valid' do
         invalid_update_location_params = {
           local: "#{FFaker::Name.name}, #{FFaker::Geolocation.lng}"
         }
 
         put "/api/locations/#{person.id}", params: invalid_update_location_params
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_content)
       end
 
-      it "longitude is invalid" do
+      it 'longitude is invalid' do
         invalid_update_location_params = {
           local: "#{FFaker::Geolocation.lat}, #{FFaker::Name.name}"
         }
 
         put "/api/locations/#{person.id}", params: invalid_update_location_params
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_content)
       end
 
-      it "person id is invalid" do
+      it 'person id is invalid' do
         update_location_params = {
           local: "#{FFaker::Geolocation.lat}, #{FFaker::Geolocation.lng}"
         }
 
-        put "/api/locations/0", params: update_location_params
-        expect(response).to have_http_status(404)
+        put '/api/locations/0', params: update_location_params
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
-
 end

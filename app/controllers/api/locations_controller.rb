@@ -1,24 +1,15 @@
 module Api
   class LocationsController < ApplicationController
     def update
-      person = Person.find_by_id(params[:id])
+      person = Person.find_by(id: params[:id])
       local = params.permit(:local)
 
-      unless person
-        return render json: { 
-          status:  t('status.error'), 
-          message: t('messages.not_found', { class: t('person.name'), id: params[:id] }) 
-        }, status: :not_found
-      end
+      return render_not_found_error(t('person.name'), params[:id]) if person.blank?
 
-      if (person.update(local))
-        render json: { status: t('status.success'), message: t('person.update_location.valid') }, status: :ok
+      if person.update(local)
+        render_success(t('person.update_location.valid'))
       else
-        render json: {
-          status: t('status.error'), 
-          message: t('person.update_location.invalid'), 
-          data: person.errors
-        }, status: :unprocessable_entity
+        render_unprocessable_entity_error(t('person.update_location.invalid'), person.errors)
       end
     end
   end

@@ -6,10 +6,14 @@ class ReportPerson < ApplicationRecord
   validate :check_report_equal
 
   def check_report_equal
-    errors.add(:report_from, I18n.t('person.report.not_same')) if report_to == report_from
+    return unless report_to == report_from
+
+    errors.add(:report_from, I18n.t('person.report.not_same'))
   end
 
   def check_report_exist
-    errors.add(:report_from, I18n.t('person.report.exist')) if ReportPerson.where(report_to: report_to, report_from: report_from).count > 0
+    return unless ReportPerson.where(report_to: report_to, report_from: report_from).count.positive?
+
+    errors.add(:report_from, I18n.t('person.report.exist'))
   end
 end

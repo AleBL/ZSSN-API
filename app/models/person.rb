@@ -1,19 +1,32 @@
 class Person < ApplicationRecord
+  GEOCOORDINATES_REGEX = /\A-?\d+\.\d+,\s*-?\d+\.\d+\z/.freeze
+
   validates :name, presence: true
   validates :local, presence: true
-  validates :inventory_id, presence: true
-  
+
   belongs_to :inventory
 
   validate :check_local
+
   def check_local
+    return errors.add(:local, I18n.t('person.location.invalid')) unless valid_geocoordinates?(local)
 
-    return errors.add(:local, I18n.t('person.location.invalid')) if local.nil?
+    lat, long = local.split(',').map(&:strip).map(&:to_f)
 
-    location = local.split(',');
+    valid_latitude = lat.between?(-90, 90)
+    valid_longitude = long.between?(-180, 180)
 
-    return errors.add(:local, I18n.t('person.location.invalid')) if location.length > 2
-    return errors.add(:local, I18n.t('person.location.invalid')) if location[0].to_f == 0.0
-    return errors.add(:local, I18n.t('person.location.invalid')) if location[1].to_f == 0.0
+    if !valid_latitude || !valid_longitude
+      errors.add(:local, I18n.t('person.location.invalid'))
+      return false
+    end
+
+    true
+  end
+
+  private
+
+  def valid_geocoordinates?(coordinates)
+    GEOCOORDINATES_REGEX.match?(coordinates)
   end
 end

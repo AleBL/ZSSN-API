@@ -1,27 +1,27 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe PercentageNonInfected do
-  describe "average resources" do
+  describe 'average resources' do
     let!(:people_infected)         { create_list(:person_with_inventory, 5, infected: true) }
     let!(:people_non_infected)     { create_list(:person_with_inventory, 10)                }
     let!(:number_people)           { Person.count.to_f                                      }
-    let!(:percentage_non_infected) { PercentageNonInfected.new }
+    let!(:percentage_non_infected) { described_class.new }
 
-    context "valid attributes" do
-      it "expected percentage people infected" do
+    context 'with valid attributes' do
+      it 'expected percentage people infected' do
         percentage  = percentage_non_infected.percentage
-        result_spec = ((people_non_infected.count/number_people) * 100).round(2)
+        result_spec = ((people_non_infected.count / number_people) * 100).round(2)
 
         expect(percentage).to eq(result_spec)
       end
     end
 
-    context "invalid attributes" do
-      it "unexpected percentage people infected" do
+    context 'with invalid attributes' do
+      it 'unexpected percentage people infected' do
         percentage  = percentage_non_infected.percentage
-        result_spec = ((people_infected.count/number_people) * 100).round(2)
+        result_spec = ((people_infected.count / number_people) * 100).round(2)
 
-        expect(percentage).to_not eq(result_spec)
+        expect(percentage).not_to eq(result_spec)
       end
     end
   end

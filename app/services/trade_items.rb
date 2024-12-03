@@ -7,32 +7,31 @@ class TradeItems
     @trade_params   = trade_params
   end
 
-  def valid?
-    return false unless valid_trade?
+  def process_trade?
+    return false unless trade_valid?
 
-    ActiveRecord::Base.transaction do
-      perform_trade
-    end
+    perform_trade_with_transaction
   end
 
   private
 
-  def valid_trade?
-    TradeValidator.new(inventory_from: inventory_from,
-                       inventory_to:   inventory_to,
-                       trade_params:   trade_params).valid?
+  def trade_valid?
+    TradeValidator.new(
+      inventory_from: inventory_from,
+      inventory_to: inventory_to,
+      trade_params: trade_params
+    ).valid?
   end
 
-  def perform_trade
-    item_trader.remove_from
-    item_trader.add_to
+  def perform_trade_with_transaction
+    ActiveRecord::Base.transaction { item_trader.perform_trade }
   end
 
   def item_trader
-    @item_trader ||= ItemTrader.new(inventory_from: inventory_from,
-                                    inventory_to:   inventory_to,
-                                    trade_params:   trade_params)
+    @item_trader ||= ItemTrader.new(
+      inventory_from: inventory_from,
+      inventory_to: inventory_to,
+      trade_params: trade_params
+    )
   end
-
-
 end

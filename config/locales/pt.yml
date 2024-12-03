@@ -25,6 +25,7 @@ pt:
       invalid: "O local é inválido"
 
   inventory:
+    name: "Inventário"
     trade:
       valid: "Troca concluída"
       invalid: "Falha na troca"

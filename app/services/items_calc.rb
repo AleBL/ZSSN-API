@@ -1,12 +1,12 @@
 class ItemsCalc
   WEIGHTS = {
-    water:      4,
-    food:       3,
+    water: 4,
+    food: 3,
     medication: 2,
     ammunition: 1
-  }
+  }.freeze
 
-  attr_reader     :inventory
+  attr_reader :inventory
 
   def initialize(inventory:)
     @inventory = inventory
@@ -14,6 +14,10 @@ class ItemsCalc
 
   def total
     water + food + medication + ammunition
+  end
+
+  def self.WEIGHTS
+    WEIGHTS
   end
 
   private
@@ -32,9 +36,5 @@ class ItemsCalc
 
   def ammunition
     inventory.ammunition.nil? ? 0 : inventory.ammunition * WEIGHTS[:ammunition]
-  end
-
-  def self.WEIGHTS
-    WEIGHTS
   end
 end

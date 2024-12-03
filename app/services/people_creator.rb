@@ -11,7 +11,7 @@ class PeopleCreator
 
     person = Person.new(create_person_params[:person])
     person.assign_attributes(infected: false, inventory: inventory)
-    
+
     return true if person.save
 
     inventory.destroy
